@@ -136,7 +136,7 @@ resource "azurerm_service_plan" "function" {
   resource_group_name = data.azurerm_resource_group.main.name
   location            = data.azurerm_resource_group.main.location
   os_type             = "Linux"
-  sku_name            = "Y1" # Consumption plan
+  sku_name            = "B1" # Basic plan
 }
 
 # Function App (Linux)
@@ -207,7 +207,7 @@ resource "azurerm_service_plan" "logic" {
   resource_group_name = data.azurerm_resource_group.main.name
   location            = data.azurerm_resource_group.main.location
   os_type             = "Windows"
-  sku_name            = "WS1" # Workflow Standard
+  sku_name            = "B1" # Basic plan
 }
 
 # Outputs
