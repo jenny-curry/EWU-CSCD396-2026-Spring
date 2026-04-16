@@ -195,7 +195,7 @@ resource "azurerm_service_plan" "logic" {
   resource_group_name = data.azurerm_resource_group.main.name
   location            = data.azurerm_resource_group.main.location
   os_type             = "Windows"
-  sku_name            = "B1" # Basic plan
+  sku_name            = "WS1" # Workflow Standard (required for Logic Apps)
 }
 
 # Outputs

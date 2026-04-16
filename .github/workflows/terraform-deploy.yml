@@ -72,6 +72,12 @@ jobs:
           client-id: ${{ vars.CLIENT_ID }}
           tenant-id: ${{ vars.TENANT_ID }}
           subscription-id: ${{ vars.SUBSCRIPTION_ID }}
+
+      - name: Register Required Resource Providers
+        run: |
+          az provider register --namespace Microsoft.App --wait
+          az provider register --namespace Microsoft.Web --wait
+          az provider register --namespace Microsoft.OperationalInsights --wait
       
       - name: Terraform Init
         working-directory: ${{ env.WORKING_DIR }}
@@ -116,6 +122,12 @@ jobs:
           client-id: ${{ vars.CLIENT_ID }}
           tenant-id: ${{ vars.TENANT_ID }}
           subscription-id: ${{ vars.SUBSCRIPTION_ID }}
+
+      - name: Register Required Resource Providers
+        run: |
+          az provider register --namespace Microsoft.App --wait
+          az provider register --namespace Microsoft.Web --wait
+          az provider register --namespace Microsoft.OperationalInsights --wait
       
       - name: Terraform Init
         working-directory: ${{ env.WORKING_DIR }}
@@ -162,6 +174,12 @@ jobs:
           client-id: ${{ vars.CLIENT_ID }}
           tenant-id: ${{ vars.TENANT_ID }}
           subscription-id: ${{ vars.SUBSCRIPTION_ID }}
+
+      - name: Register Required Resource Providers
+        run: |
+          az provider register --namespace Microsoft.App --wait
+          az provider register --namespace Microsoft.Web --wait
+          az provider register --namespace Microsoft.OperationalInsights --wait
       
       - name: Terraform Init
         working-directory: ${{ env.WORKING_DIR }}
