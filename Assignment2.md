@@ -37,7 +37,7 @@ Complete the following Tutorials and do not clean up resources until assignment 
 - Url Accessible (and working) ❌✅
 - Successful Workflow Run to Deploy Infrastructure ❌✅
 
-2. Create and deploy an Auzre Function Bound to Service Bus. The function should write messages received to a storage account
+2. Create and deploy an Azure Function Bound to Service Bus. The function should write messages received to a storage account
 
    {https://learn.microsoft.com/en-us/azure/app-service/scenario-secure-app-access-storage?tabs=azure-cli}
 
@@ -47,24 +47,7 @@ Complete the following Tutorials and do not clean up resources until assignment 
 
 3. Add a feature to the web app to write a message to the Service Bus from step 2. Ideally this ia a text box for the message and a button to submit the message to the bus. You can use the Azure SDK for .NET to send messages to the bus from your web app.
 
-
-
-
-4. Create a PowerShell script called Assignment2.ps1 on your branch within the Assignment2 folder ❌✅
-
-- Copy the following text into your PowerShell script and fill in your specific values for the variables
-```
-$SubscriptionId = ""
-$ResourceGroup = ""
-$WebAppName = ""
-$WebAppUrl = ""
-$KeyVault = ""
-$SecretName = ""
-$StorageAccount = ""
-```
-- You can test if your assignment will pass by running the PS script at Scripts/Assignment2Grading.ps1. Run your Assignment2.ps1 script to set local variables first.
-
-5. Please add jcurry9@ewu.edu as a contributor to your subscription, otherwise grading will not be possible.
+4. Please add jcurry9@ewu.edu as a contributor to your subscription, otherwise grading will not be possible.
 
 
 ## Extra Credit
