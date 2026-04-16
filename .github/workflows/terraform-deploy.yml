@@ -47,7 +47,7 @@ env:
   TF_VAR_location: 'eastus'
   TF_VAR_function_app_name: fn-test-2026
   TF_VAR_logic_app_name: lg-test-2026
-  TF_VAR_storage_account_name: ewutest2026
+  TF_VAR_storage_account_name: ewu2026test2
   TF_VAR_container_app_name: ca-test-2026
   TF_VAR_environment_name: development
 
