@@ -2,7 +2,7 @@
 
 # Variables
 $RESOURCE_GROUP = "rg-vmtest1"
-$STORAGE_ACCOUNT = "ewu2026test"
+$STORAGE_ACCOUNT = "ewu2026test2"
 $CONTAINER_NAME = "tfstate"
 $LOCATION = "eastus"
 
