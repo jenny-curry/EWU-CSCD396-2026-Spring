@@ -148,7 +148,7 @@ resource "azurerm_linux_function_app" "main" {
 
   site_config {
     application_stack {
-      node_version = "18"
+      powershell_core_version = "7.4"
     }
     
     application_insights_connection_string = azurerm_application_insights.main.connection_string
@@ -156,7 +156,7 @@ resource "azurerm_linux_function_app" "main" {
   }
 
   app_settings = {
-    "FUNCTIONS_WORKER_RUNTIME" = "node"
+    "FUNCTIONS_WORKER_RUNTIME" = "powershell"
     "WEBSITE_RUN_FROM_PACKAGE" = "1"
   }
 }
