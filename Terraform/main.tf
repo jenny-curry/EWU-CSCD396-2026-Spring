@@ -181,7 +181,8 @@ resource "azurerm_logic_app_standard" "main" {
 
   app_settings = {
     "FUNCTIONS_WORKER_RUNTIME"     = "node"
-    "WEBSITE_NODE_DEFAULT_VERSION" = "~18"
+    "WEBSITE_NODE_DEFAULT_VERSION" = "~20"
+    "FUNCTIONS_EXTENSION_VERSION"  = "~4"
   }
 
   site_config {
