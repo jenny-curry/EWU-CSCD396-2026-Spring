@@ -6,10 +6,7 @@
 			"label": "func: host start",
 			"command": "host start",
 			"problemMatcher": "$func-powershell-watch",
-			"isBackground": true,
-			"options": {
-				"cwd": "${workspaceFolder}/SampleResources\\Assn4FunctionProj"
-			}
+			"isBackground": true
 		}
 	]
 }
