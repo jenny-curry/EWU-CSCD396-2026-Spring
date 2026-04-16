@@ -187,7 +187,7 @@ resource "azurerm_logic_app_standard" "main" {
   }
 
   site_config {
-    use_32_bit_worker = false
+    use_32_bit_worker_process = false
   }
 }
 
