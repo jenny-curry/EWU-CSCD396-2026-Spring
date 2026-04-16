@@ -122,12 +122,9 @@ resource "azurerm_container_app" "main" {
 }
 
 # Storage Account for Function App
-resource "azurerm_storage_account" "function" {
+data "azurerm_storage_account" "function" {
   name                     = var.storage_account_name
   resource_group_name      = data.azurerm_resource_group.main.name
-  location                 = data.azurerm_resource_group.main.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
 }
 
 # App Service Plan for Function App
@@ -145,8 +142,8 @@ resource "azurerm_linux_function_app" "main" {
   resource_group_name = data.azurerm_resource_group.main.name
   location            = data.azurerm_resource_group.main.location
 
-  storage_account_name       = azurerm_storage_account.function.name
-  storage_account_access_key = azurerm_storage_account.function.primary_access_key
+  storage_account_name       = data.azurerm_storage_account.function.name
+  storage_account_access_key = data.azurerm_storage_account.function.primary_access_key
   service_plan_id            = azurerm_service_plan.function.id
 
   site_config {
@@ -179,8 +176,8 @@ resource "azurerm_logic_app_standard" "main" {
   location                   = data.azurerm_resource_group.main.location
   resource_group_name        = data.azurerm_resource_group.main.name
   app_service_plan_id        = azurerm_service_plan.logic.id
-  storage_account_name       = azurerm_storage_account.logic.name
-  storage_account_access_key = azurerm_storage_account.logic.primary_access_key
+  storage_account_name       = data.azurerm_storage_account.function.name
+  storage_account_access_key = data.azurerm_storage_account.function.primary_access_key
 
   app_settings = {
     "FUNCTIONS_WORKER_RUNTIME"     = "node"
@@ -190,15 +187,6 @@ resource "azurerm_logic_app_standard" "main" {
   site_config {
     use_32_bit_worker_process = false
   }
-}
-
-# Storage Account for Logic App
-resource "azurerm_storage_account" "logic" {
-  name                     = "${var.storage_account_name}logic"
-  resource_group_name      = data.azurerm_resource_group.main.name
-  location                 = data.azurerm_resource_group.main.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
 }
 
 # App Service Plan for Logic App
@@ -253,5 +241,5 @@ output "logic_app_url" {
 
 output "storage_account_name" {
   description = "Name of the Function App storage account"
-  value       = azurerm_storage_account.function.name
+  value       = data.azurerm_storage_account.function.name
 }
