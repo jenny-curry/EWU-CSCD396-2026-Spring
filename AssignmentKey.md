@@ -8,7 +8,7 @@
    - Turn in: 4/21 11:59 pm
 1. [Assignment 2](Assignment2.md)
    - 100 points +5 EC points
-   - Assigned: 4/14
+   - Assigned: 4/16
    - Turn in: 4/28 11:59 pm
 1. [Assignment 3](Assignment3.md)
    - 100 points +5 EC points
