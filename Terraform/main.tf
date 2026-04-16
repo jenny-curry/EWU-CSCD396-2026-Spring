@@ -223,7 +223,7 @@ output "container_app_url" {
 
 output "resource_group_name" {
   description = "Name of the resource group"
-  value       = azurerm_resource_group.main.name
+  value       = data.azurerm_resource_group.main.name
 }
 
 output "environment_name" {
