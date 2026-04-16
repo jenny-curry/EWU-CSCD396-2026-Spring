@@ -34,7 +34,7 @@ env:
   WORKING_DIR: './Terraform'
   # Terraform Backend Configuration
   BACKEND_RESOURCE_GROUP: rg-vmtest1
-  BACKEND_STORAGE_ACCOUNT: ewu2026test
+  BACKEND_STORAGE_ACCOUNT: ewu2026test2
   BACKEND_CONTAINER: tfstate
   BACKEND_KEY: terraform.tfstate
   # Azure Auth
