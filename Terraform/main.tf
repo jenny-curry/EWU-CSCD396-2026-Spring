@@ -74,15 +74,14 @@ variable "service_bus_name" {
 
 # Resource Group
 data "azurerm_resource_group" "main" {
-  name     = var.resource_group_name
-  location = var.location
+  name = var.resource_group_name
 }
 
 # Log Analytics Workspace (required for Container Apps Environment)
 resource "azurerm_log_analytics_workspace" "main" {
   name                = "law-${var.environment_name}"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
   sku                 = "PerGB2018"
   retention_in_days   = 30
 }
@@ -90,8 +89,8 @@ resource "azurerm_log_analytics_workspace" "main" {
 # Container Apps Environment
 resource "azurerm_container_app_environment" "main" {
   name                       = var.environment_name
-  location                   = azurerm_resource_group.main.location
-  resource_group_name        = azurerm_resource_group.main.name
+  location                   = data.azurerm_resource_group.main.location
+  resource_group_name        = data.azurerm_resource_group.main.name
   log_analytics_workspace_id = azurerm_log_analytics_workspace.main.id
 }
 
@@ -99,7 +98,7 @@ resource "azurerm_container_app_environment" "main" {
 resource "azurerm_container_app" "main" {
   name                         = var.container_app_name
   container_app_environment_id = azurerm_container_app_environment.main.id
-  resource_group_name          = azurerm_resource_group.main.name
+  resource_group_name          = data.azurerm_resource_group.main.name
   revision_mode                = "Single"
 
   template {
@@ -130,8 +129,8 @@ resource "azurerm_container_app" "main" {
 # Storage Account for Function App
 resource "azurerm_storage_account" "function" {
   name                     = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.main.name
-  location                 = azurerm_resource_group.main.location
+  resource_group_name      = data.azurerm_resource_group.main.name
+  location                 = data.azurerm_resource_group.main.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
@@ -139,8 +138,8 @@ resource "azurerm_storage_account" "function" {
 # App Service Plan for Function App
 resource "azurerm_service_plan" "function" {
   name                = "asp-${var.function_app_name}"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
   os_type             = "Linux"
   sku_name            = "Y1" # Consumption plan
 }
@@ -148,8 +147,8 @@ resource "azurerm_service_plan" "function" {
 # Function App (Linux)
 resource "azurerm_linux_function_app" "main" {
   name                = var.function_app_name
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
 
   storage_account_name       = azurerm_storage_account.function.name
   storage_account_access_key = azurerm_storage_account.function.primary_access_key
@@ -173,8 +172,8 @@ resource "azurerm_linux_function_app" "main" {
 # Application Insights for monitoring
 resource "azurerm_application_insights" "main" {
   name                = "ai-${var.function_app_name}"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
   workspace_id        = azurerm_log_analytics_workspace.main.id
   application_type    = "web"
 }
@@ -182,8 +181,8 @@ resource "azurerm_application_insights" "main" {
 # Logic App (Standard)
 resource "azurerm_logic_app_standard" "main" {
   name                       = var.logic_app_name
-  location                   = azurerm_resource_group.main.location
-  resource_group_name        = azurerm_resource_group.main.name
+  location                   = data.azurerm_resource_group.main.location
+  resource_group_name        = data.azurerm_resource_group.main.name
   app_service_plan_id        = azurerm_service_plan.logic.id
   storage_account_name       = azurerm_storage_account.logic.name
   storage_account_access_key = azurerm_storage_account.logic.primary_access_key
@@ -201,8 +200,8 @@ resource "azurerm_logic_app_standard" "main" {
 # Storage Account for Logic App
 resource "azurerm_storage_account" "logic" {
   name                     = "${var.storage_account_name}logic"
-  resource_group_name      = azurerm_resource_group.main.name
-  location                 = azurerm_resource_group.main.location
+  resource_group_name      = data.azurerm_resource_group.main.name
+  location                 = data.azurerm_resource_group.main.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
@@ -210,8 +209,8 @@ resource "azurerm_storage_account" "logic" {
 # Service Bus Namespace
 resource "azurerm_servicebus_namespace" "main" {
   name                = var.service_bus_name
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
   sku                 = "Standard"
 
   minimum_tls_version = "1.2"
@@ -222,8 +221,8 @@ resource "azurerm_servicebus_namespace" "main" {
 # App Service Plan for Logic App
 resource "azurerm_service_plan" "logic" {
   name                = "asp-${var.logic_app_name}"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
   os_type             = "Windows"
   sku_name            = "WS1" # Workflow Standard
 }
@@ -241,7 +240,7 @@ output "container_app_url" {
 
 output "resource_group_name" {
   description = "Name of the resource group"
-  value       = azurerm_resource_group.main.name
+  value       = data.azurerm_resource_group.main.name
 }
 
 output "environment_name" {
