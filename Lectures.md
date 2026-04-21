@@ -78,7 +78,6 @@ Serverless Architecture
 - Q and A
 - Functions
 - Logic Apps
-- Cosmos DB and Azure SQL
 
 - Explore Functions
 - Discuss excercises
@@ -97,6 +96,7 @@ Messaging and Eventing
 ### Topics Covered
 - Review events and messages
 - Explore Event Grid
+- Explore Event Hub
 
 ## Lecture 9
 ### Topics Covered

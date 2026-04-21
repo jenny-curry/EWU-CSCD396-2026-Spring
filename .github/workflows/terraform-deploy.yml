@@ -138,6 +138,10 @@ jobs:
             -backend-config="container_name=${{ env.BACKEND_CONTAINER }}" \
             -backend-config="key=${{ env.BACKEND_KEY }}"
       
+      - name: Terraform Validate
+        working-directory: ${{ env.WORKING_DIR }}
+        run: terraform validate
+
       - name: Terraform Apply
         working-directory: ${{ env.WORKING_DIR }}
         run: terraform apply -auto-approve
